@@ -6,7 +6,8 @@
   "automerge": true,
   "labels": ["renovate"],
   "ignorePaths": ["^vendor/"],
-  "ignoreDeps": [
-    
-  ]
+  "ignoreDeps": [],
+  "prConcurrentLimit": 10,
+  "branchConcurrentLimit": 10,
+  "schedule": ["at any time"]
 }
