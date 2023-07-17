@@ -1,8 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":gradle",
+    ":springBoot"
   ],
   "automerge": true,
-  "commitMessagePrefix": "chore(deps): update dependencies"
+  "labels": ["renovate"],
+  "ignorePaths": ["^vendor/"],
+  "ignoreDeps": [
+    
+  ]
 }
