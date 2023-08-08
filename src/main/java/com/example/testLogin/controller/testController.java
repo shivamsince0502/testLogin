@@ -13,4 +13,9 @@ public class testController {
         return "Hello Check";
     }
 
+    @GetMapping("/checkNew")
+    public String getCheckNew() {
+        return "Hello Check new";
+    }
+
 }
