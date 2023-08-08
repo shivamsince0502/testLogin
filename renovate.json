@@ -1,0 +1,26 @@
+{
+"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  
+  "baseBranches": ["main"],
+  "ignoreTests": true,
+
+  "prConcurrentLimit": 0,
+  "schedule": ["at any time"],
+  "packageRules": [
+    {
+      "groupName": "devDependencies (major)",
+       "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["major"],
+      "branchPrefix": "major/${depName}"
+
+    },
+    {
+      "groupName": "devDependencies (non-major)",
+       "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "branchPrefix": "non-major/${depName}"
+
+    }
+  ]  
+  
+}

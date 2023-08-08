@@ -1,0 +1,45 @@
+name: Gradle Test
+on:
+  pull_request:
+    branches:
+        - 'main'
+    types: [opened, reopened]
+jobs:
+  build:
+    name: Run Gradle Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: "adopt"
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          distribution: "adopt"
+      - name: Build with Gradle
+        run: ./gradlew clean test
+        id: gradle_test_result
+        
+      - name: Check Gradle Test Status
+        if: steps.gradle_test_result.outcome == 'success'
+        run: echo "Gradle tests passed!"
+        
+      - name: Merge Pull Request
+        if: contains(github.head_ref, 'non-major')
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.AUTO_MERGE_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge
+          
+      - name: Major Update
+        if: ${{ !contains(github.head_ref, 'non-major') }}
+        run: echo "The pull request will not be merged, as it is a Major update."
+        continue-on-error: true
